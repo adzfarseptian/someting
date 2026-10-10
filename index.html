@@ -3,16 +3,17 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>one last thing...</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>terima kasih, dan selamat tinggal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
-
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
 
         :root {
@@ -20,21 +21,23 @@
             --text: #e9e7e3;
             --muted: #8f9097;
             --line: rgba(255, 255, 255, .10);
-            --glass: rgba(255, 255, 255, .045);
             --accent: #d9b98a;
             --accent-soft: rgba(217, 185, 138, .35);
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
         }
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
         }
 
         body {
             min-height: 100vh;
             background: var(--bg);
             color: var(--text);
-            font-family: Inter, sans-serif;
-            overflow-x: hidden;
+            font-family: Inter, system-ui, sans-serif;
+            overflow-x: hidden
         }
 
         #progressBar {
@@ -42,404 +45,19 @@
             top: 0;
             left: 0;
             height: 3px;
-            width: 0%;
+            width: 0;
             background: linear-gradient(90deg, var(--accent-soft), var(--accent));
             z-index: 40;
-            transition: width .1s linear;
             display: none;
+            padding-top: env(safe-area-inset-top, 0px)
         }
 
         #stars {
             position: fixed;
             inset: 0;
             z-index: -2;
-            background:
-                radial-gradient(circle at 50% 20%, rgba(217, 185, 138, .08), transparent 32%),
-                radial-gradient(circle at 20% 80%, rgba(80, 90, 120, .07), transparent 28%),
-                var(--bg);
+            background: radial-gradient(circle at 50% 20%, rgba(217, 185, 138, .08), transparent 32%), radial-gradient(circle at 20% 80%, rgba(80, 90, 120, .07), transparent 28%), var(--bg)
         }
-
-        .grain {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 20;
-            opacity: .035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-        }
-
-        .star {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            border-radius: 50%;
-            background: white;
-            opacity: .35;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .screen {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 20px;
-        }
-
-        #opening {
-            text-align: center;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        #opening.hidden {
-            opacity: 0;
-            transform: scale(.97);
-            pointer-events: none;
-        }
-
-        .eyebrow {
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .3em;
-            font-size: clamp(10px, 2.8vw, 11px);
-            margin-bottom: 22px;
-        }
-
-        .opening-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(42px, 11vw, 82px);
-            font-weight: 400;
-            font-style: italic;
-            line-height: 1.05;
-            margin-bottom: 18px;
-        }
-
-        .opening-sub {
-            max-width: 430px;
-            margin: auto;
-            color: var(--muted);
-            font-size: clamp(15px, 4.2vw, 16px);
-            line-height: 1.85;
-            margin-bottom: 35px;
-        }
-
-        button {
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, .035);
-            color: var(--text);
-            padding: 15px 26px;
-            border-radius: 100px;
-            font: 500 clamp(13px, 3.6vw, 14px) Inter, sans-serif;
-            cursor: pointer;
-            transition: .3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        button:hover {
-            background: rgba(255, 255, 255, .09);
-            transform: translateY(-2px);
-            border-color: var(--accent-soft);
-        }
-
-        .hint {
-            margin-top: 16px;
-            font-size: clamp(11px, 3vw, 12px);
-            color: #55565d;
-        }
-
-        #letter {
-            display: none;
-            width: min(760px, 100%);
-            padding: 80px 0 130px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(25px);
-            transition: 1.2s ease;
-        }
-
-        #letter.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .letter-head {
-            padding-bottom: 35px;
-            border-bottom: 1px solid var(--line);
-            margin-bottom: 48px;
-        }
-
-        .chapter {
-            color: var(--muted);
-            font-size: clamp(10px, 2.8vw, 11px);
-            letter-spacing: .25em;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-        }
-
-        .letter-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(36px, 9vw, 58px);
-            font-weight: 400;
-            line-height: 1.1;
-        }
-
-        .date {
-            color: #62636b;
-            font-size: clamp(12px, 3.2vw, 12px);
-            margin-top: 16px;
-        }
-
-        .section {
-            margin-bottom: 70px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 1s ease;
-            text-align: center;
-            padding: 0 4px;
-        }
-
-        .section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section p {
-            color: #c5c4c1;
-            font-size: clamp(17px, 4.8vw, 19px);
-            line-height: 1.95;
-            font-weight: 300;
-            margin-bottom: 22px;
-        }
-
-        .section p em {
-            font-family: "Playfair Display", serif;
-            font-style: italic;
-            font-size: 1.1em;
-            color: var(--accent);
-        }
-
-        .chapter-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: #8a8b91;
-            font-size: clamp(10px, 2.8vw, 11px);
-            letter-spacing: .2em;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-
-        .chapter-label::before {
-            content: "";
-            width: 22px;
-            height: 1px;
-            background: var(--accent-soft);
-        }
-
-        .quote {
-            padding: 28px 22px;
-            margin: 36px auto;
-            max-width: 650px;
-            border: 1px solid var(--line);
-            border-left: 2px solid var(--accent-soft);
-            border-radius: 4px;
-            background: linear-gradient(90deg, rgba(217, 185, 138, .05), transparent);
-        }
-
-        .quote p {
-            font-family: "Playfair Display", serif;
-            font-style: italic;
-            font-size: clamp(19px, 5.5vw, 22px);
-            color: #eee1cc;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* QUIZ */
-
-        .quiz-box {
-            max-width: 620px;
-            margin: 0 auto;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--glass);
-            padding: 32px 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .quiz-progress {
-            font-size: clamp(10px, 2.8vw, 11px);
-            color: #6d6e75;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-
-        .quiz-q {
-            font-family: "Playfair Display", serif;
-            font-style: italic;
-            font-size: clamp(18px, 5.2vw, 22px);
-            color: #f0efec;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .quiz-opt {
-            width: 100%;
-            text-align: left;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, .03);
-            color: var(--text);
-            padding: 15px 17px;
-            border-radius: 12px;
-            font: 400 clamp(15px, 4.2vw, 16px) Inter, sans-serif;
-            line-height: 1.5;
-            cursor: pointer;
-            transition: .25s ease;
-        }
-
-        .quiz-opt:hover {
-            background: rgba(217, 185, 138, .07);
-            border-color: var(--accent-soft);
-        }
-
-        .quiz-opt.picked {
-            background: rgba(217, 185, 138, .1);
-            border-color: var(--accent-soft);
-        }
-
-        .quiz-opt:disabled {
-            cursor: default;
-            opacity: .5;
-        }
-
-        .quiz-opt:disabled:hover {
-            background: rgba(255, 255, 255, .03);
-            border-color: var(--line);
-        }
-
-        .quiz-reply {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid var(--line);
-            font-family: "Playfair Display", serif;
-            font-style: italic;
-            font-size: clamp(15px, 4.3vw, 17px);
-            color: var(--accent);
-            line-height: 1.7;
-            display: none;
-        }
-
-        .quiz-reply.show {
-            display: block;
-        }
-
-        .quiz-next {
-            margin-top: 22px;
-            display: none;
-        }
-
-        .quiz-next.show {
-            display: inline-block;
-        }
-
-        .quiz-done {
-            text-align: center;
-            font-size: clamp(15px, 4.2vw, 16px);
-            color: var(--muted);
-            line-height: 1.9;
-            padding: 4px 4px 0;
-        }
-
-        .quiz-tag {
-            font-size: clamp(10px, 2.8vw, 11px);
-            color: var(--accent);
-            letter-spacing: .22em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            opacity: .8;
-        }
-
-        .choice-wrap {
-            text-align: center;
-            padding: 60px 20px;
-            margin-top: 20px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .choice-wrap h2 {
-            font-family: "Playfair Display", serif;
-            font-weight: 400;
-            font-size: clamp(26px, 7vw, 30px);
-            margin-bottom: 12px;
-        }
-
-        .choice-wrap p {
-            color: var(--muted);
-            font-size: clamp(13px, 3.6vw, 14px);
-            margin-bottom: 28px;
-            line-height: 1.7;
-        }
-
-        .choices {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .choice {
-            min-width: 150px;
-        }
-
-        #ending {
-            display: none;
-            min-height: 100vh;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        #ending.show {
-            display: flex;
-            animation: fadeIn 2s ease forwards;
-        }
-
-        .ending-inner {
-            max-width: 600px;
-        }
-
-        .ending-symbol {
-            font-size: 28px;
-            color: var(--accent);
-            margin-bottom: 28px;
-        }
-
-        .ending-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(34px, 9vw, 65px);
-            font-weight: 400;
-            font-style: italic;
-            margin-bottom: 22px;
-        }
-
-        .ending-text {
-            color: var(--muted);
-            font-size: clamp(14px, 4vw, 16px);
-            line-height: 1.9;
-        }
-
-        /* MUSIC BUTTON */
 
         .music {
             position: fixed;
@@ -451,1583 +69,316 @@
             height: 40px;
             padding: 0;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 14px
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: #fff;
+            pointer-events: none;
+            z-index: -1
         }
 
-        @media (max-width: 600px) {
-            #letter {
-                padding: 55px 16px 100px;
-            }
+        .screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px
+        }
 
-            .quiz-box {
-                padding: 24px 16px;
-            }
+        #opening {
+            text-align: center;
+            transition: opacity 1s ease, transform 1s ease
+        }
 
-            .quiz-opt {
-                padding: 13px 15px;
-            }
+        #opening.hidden {
+            opacity: 0;
+            transform: scale(.97);
+            pointer-events: none
+        }
+
+        .eyebrow {
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .3em;
+            font-size: clamp(10px, 2.8vw, 11px);
+            margin-bottom: 22px
+        }
+
+        .opening-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(40px, 11vw, 78px);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.08;
+            margin-bottom: 18px
+        }
+
+        .opening-sub {
+            max-width: 430px;
+            margin: 0 auto 35px;
+            color: var(--muted);
+            font-size: clamp(15px, 4.2vw, 16px);
+            line-height: 1.85
+        }
+
+        button {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .035);
+            color: var(--text);
+            padding: 15px 26px;
+            border-radius: 100px;
+            font: 500 clamp(13px, 3.6vw, 14px) Inter, sans-serif;
+            cursor: pointer;
+            transition: .3s ease
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, .09);
+            transform: translateY(-2px);
+            border-color: var(--accent-soft)
+        }
+
+        .hint {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #55565d
+        }
+
+        #letter {
+            display: none;
+            width: min(760px, 100%);
+            padding: 80px 20px 130px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: 1.2s ease
+        }
+
+        #letter.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        .letter-head {
+            padding-bottom: 35px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 48px
+        }
+
+        .chapter {
+            color: var(--muted);
+            font-size: clamp(10px, 2.8vw, 11px);
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            margin-bottom: 14px
+        }
+
+        .letter-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(34px, 9vw, 56px);
+            font-weight: 400;
+            line-height: 1.1
+        }
+
+        .date {
+            color: #62636b;
+            font-size: 12px;
+            margin-top: 16px
+        }
+
+        .section {
+            margin-bottom: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s ease;
+            text-align: center
+        }
+
+        .section.show {
+            opacity: 1;
+            transform: none
+        }
+
+        .section p {
+            color: #c5c4c1;
+            font-size: clamp(17px, 4.8vw, 19px);
+            line-height: 1.95;
+            font-weight: 300;
+            margin-bottom: 22px
+        }
+
+        .section p em {
+            font-family: "Playfair Display", Georgia, serif;
+            font-style: italic;
+            font-size: 1.1em;
+            color: var(--accent)
+        }
+
+        .chapter-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #8a8b91;
+            font-size: clamp(10px, 2.8vw, 11px);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            margin-bottom: 24px
+        }
+
+        .chapter-label::before {
+            content: "";
+            width: 22px;
+            height: 1px;
+            background: var(--accent-soft)
+        }
+
+        .quote {
+            padding: 28px 22px;
+            margin: 20px auto 36px;
+            max-width: 650px;
+            border: 1px solid var(--line);
+            border-left: 2px solid var(--accent-soft);
+            border-radius: 4px;
+            background: linear-gradient(90deg, rgba(217, 185, 138, .05), transparent)
+        }
+
+        .quote p {
+            font-family: "Playfair Display", Georgia, serif;
+            font-style: italic;
+            font-size: clamp(19px, 5.5vw, 22px);
+            color: #eee1cc;
+            line-height: 1.6;
+            margin: 0
+        }
+
+        .end {
+            text-align: center;
+            color: #62636b;
+            font-size: 12px;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            margin-top: 20px
         }
     </style>
 </head>
 
 <body>
-
     <div id="progressBar"></div>
     <div id="stars"></div>
-    <div class="grain"></div>
-
-    <!-- MUSIC -->
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung audio.
     </audio>
-
     <button class="music" id="musicBtn" title="Music">♪</button>
-
+    
     <main>
-
-        <!-- OPENING -->
-
         <section class="screen" id="opening">
             <div>
-
-                <div class="eyebrow">
-                    a letter i almost didn't write
-                </div>
-
-                <h1 class="opening-title">
-                    one last thing...
-                </h1>
-
-                <p class="opening-sub">
-                    mungkin ada beberapa hal yang lebih mudah disampaikan
-                    lewat tulisan daripada lewat percakapan.
-                </p>
-
-                <button id="openBtn">
-                    open this
-                </button>
-
-                <div class="hint">
-                    take your time.
-                </div>
-
+                <div class="eyebrow">a letter, for the last time</div>
+                <h1 class="opening-title">terima kasih,<br>dan selamat tinggal.</h1>
+                <p class="opening-sub">ada beberapa hal yang pengen aku sampaikan dengan tenang sebelum kita beneran
+                    jadi asing.</p>
+                <button id="openBtn">open this</button>
+                <div class="hint">take your time.</div>
             </div>
         </section>
-
-
-        <!-- LETTER -->
 
         <article id="letter">
-
             <header class="letter-head">
-
-                <div class="chapter">
-                    01 — before anything else
-                </div>
-
-                <h1 class="letter-title">
-                    one last letter.
-                </h1>
-
+                <div class="chapter">the last one</div>
+                <h1 class="letter-title">kata-kata perpisahan.</h1>
                 <div class="date" id="date"></div>
-
             </header>
 
-
             <section class="section">
-
-                <div class="chapter-label">
-                    not something weird, i promise
-                </div>
-
-                <p>
-                    ehh btw, sebelum kamu mikir yang aneh-aneh, aku kirim ini bukan
-                    apa-apa kok wkwkwk. gausah khawatir, ini cuma bentuk rasa syukur
-                    sekaligus <em>surpriseee kecil</em> buat kamu.
-                </p>
-
+                <div class="chapter-label">aku dengar kamu</div>
+                <p>tadi kamu bilang mungkin udah waktunya kita jadi asing. aku dengerin, dan aku hargai kamu udah jujur
+                    soal itu.</p>
+                <p><em>aku terima.</em> aku ga mau kamu bertahan cuma karena ga enak sama aku.</p>
             </section>
 
+            <section class="section">
+                <div class="chapter-label">awalnya</div>
+                <p>kita ketemu di tele, dari obrolan yang awalnya sederhana banget. ga ada yang direncanain, tapi
+                    lama-lama jadi kebiasaan yang aku tungguin tiap hari.</p>
+                <p>cuma dua bulan, tapi buat aku itu ga sebentar. banyak cerita, banyak tawa, dan banyak hari biasa yang
+                    jadi terasa lebih ringan karena ada kamu.</p>
+            </section>
 
             <section class="section">
+                <div class="chapter-label">makasih</div>
+                <p>makasih udah hadir, udah nemenin aku ngobrol, dengerin cerita-cerita aku, dan peduli sama aku.
+                    makasih juga buat foto-foto kamu, buat perhatian kamu, dan buat semua hal kecil yang mungkin biasa
+                    aja buat kamu tapi berarti buat aku.</p>
+                <p>aku bersyukur pernah ada di sisi kamu, walau cuma sebentar.</p>
+            </section>
 
-                <div class="chapter-label">
-                    the accidental beginning
-                </div>
+            <section class="section">
+                <div class="chapter-label">jujur aja</div>
+                <p>aku ga akan pura-pura. ada rasa cemburu dan kecewa di sepanjang jalan, apalagi soal cara kamu
+                    berinteraksi sama cowok lain. aku juga sempat berharap lebih dari yang bisa kita punya.</p>
+                <p>tapi dari awal kamu udah bilang kamu ga mau pacaran dan gampang bosen. <em>kamu ga pernah menjanjikan
+                        apa-apa.</em> itu harapan aku sendiri, dan itu bukan salah kamu.</p>
+            </section>
 
-                <p>
-                    kalau dipikir-pikir lucu juga ya gimana awalnya aku bisa ketemu kamu. kita kan ketemu di tele, dan
-                    jujur aja itu bener-bener ga sengaja. waktu itu aku juga ga nyangka kalau dari sekian banyak orang
-                    yang ada di sana, <em> malah pesan kamu yang akhirnya bikin kita ngobrol sampai sejauh ini.</em>
-                </p>
+            <section class="section">
+                <div class="chapter-label">dan maaf</div>
+                <p>maaf kalau selama ini aku berharap terlalu banyak, atau pernah bikin kamu ga nyaman. maaf juga kalau
+                    aku sempat nuntut hal yang belum bisa kamu kasih.</p>
+                <p>aku ga mau jadi cadangan, dan aku juga ga mau jadi beban. jadi mulai hari ini aku mundur.</p>
+            </section>
 
-                <p>
-                    dari situ yaudah, kita mulai ngobrol. awalnya mungkin ga ada yang spesial-spesial banget, tapi entah
-                    kenapa obrolan kita terus aja jalan dan akhirnya jadi sesering itu.
+            <section class="section">
+                <div class="chapter-label">semoga</div>
+                <p>semoga kamu bahagia, sama siapa pun dan apa pun yang kamu pilih. semoga rencana-rencana kamu,
+                    termasuk yang di bulan Desember nanti, berjalan baik dan sesuai yang kamu harapkan.</p>
+                <p>semoga kamu ketemu orang yang bikin kamu ga merasa bosen, ga merasa takut, dan ga merasa harus pergi.
                 </p>
             </section>
 
-
             <section class="section">
-
-                <div class="chapter-label">
-                    how it grew
-                </div>
-
-                <p>
-                    terus makin lama kok malah makin enak hahaha. yang awalnya cuma ngobrol biasa, lama-lama jadi
-                    kebiasaan. mulai dari ngobrolin banyak hal, tuker-tukeran pikiran, saling cerita, saling peduli,
-                    sampai akhirnya tanpa sadar kita jadi sedekat itu.
-                </p>
-
-                <p>
-                    dan ternyata dari hal yang awalnya sesederhana itu, aku bisa
-                    sampai sejauh ini sama kamu. aneh ya, kadang sesuatu yang kita
-                    pikir cuma akan berlangsung sebentar ternyata bisa meninggalkan
-                    cerita yang panjang.
-                </p>
-
-                <p>
-                    aku juga ga pernah menyangka kalau seseorang yang awalnya cuma
-                    aku temui secara ga sengaja di sebuah aplikasi,
-                    <em>akhirnya bisa jadi seseorang yang aku tunggu pesannya,
-                        aku cari keberadaannya</em>, aku ceritain banyak hal, dan
-                    perlahan jadi bagian dari keseharian aku.
-                </p>
-
-            </section>
-
-
-            <!-- CHECKPOINT A -->
-
-            <section class="section">
-
-                <div class="quiz-tag">
-                    ✦ sebelum lanjut baca
-                </div>
-
-                <div class="quiz-box" id="quizA">
-
-                    <p class="quiz-q">
-                        kalau balik lagi ke awal, gimana rasanya waktu itu abis kirim
-                        pesan pertama terus dibales?
-                    </p>
-
-                    <div class="quiz-options" data-quiz="A"></div>
-
-                    <p class="quiz-reply"></p>
-
-                </div>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    thank you, for real
-                </div>
-
-                <p>
-                    makasih banyak yaa. makasih buanyakkkkkk buat kamu yang udah
-                    hadir dan bikin hari hari aku terasa jauh berbeda. makasih karena
-                    udah mau ngasih aku foto foto cantik kamu, perhatian sama aku,
-                    nemenin aku ngobrol, dengerin cerita-cerita aku, tuker pikiran
-                    sama aku, dan buat semua hal kecil yang mungkin buat kamu biasa
-                    aja tapi ternyata berarti banget buat aku.
-                </p>
-
-                <p>
-                    seneng banget rasanya bisa ketemu kamu. bahkan aku bersyukur
-                    pernah bisa ada di sisi kamu, bisa sedekat ini sama kamu, dan
-                    bisa punya banyak cerita yang sebelumnya bahkan ga pernah aku
-                    bayangin.
-                </p>
-
-                <p>
-                    aku seneng pernah punya seseorang yang bisa bikin aku tersenyum
-                    cuma gara-gara satu pesan sederhana. seneng pernah punya
-                    seseorang yang kehadirannya bisa bikin hari yang tadinya biasa
-                    aja terasa sedikit lebih menyenangkan.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    i hoped it would last
-                </div>
-
-                <p>
-                    dan jujur, aku sempat berharap kalau semua ini bisa terus
-                    berlanjuttt. makin lama makin banyak cerita, makin banyak hal
-                    yang bisa kita lewatin bareng, makin banyak hal kecil yang
-                    nantinya bisa kita ingat sambil bilang, "oh iya, dulu kita
-                    pernah ngalamin ini."
-                </p>
-
-                <p>
-                    <em>
-                        aku berharap kita bisa terus ada, terus saling menemukan
-                        satu sama lain
-                    </em>
-                    di tengah hari-hari yang mungkin semakin sibuk, sampai tiada henti.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    but then...
-                </div>
-
-                <p>
-                    namunnn... ada satu rasa yang ternyata harus aku ucapkan.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the jealousy i didn't want to admit
-                </div>
-
-                <p>
-                    kalau dipikir-pikir lagi, ternyata banyak juga ya orang yang mau
-                    sama kamu. bahkan beberapa di antaranya masih kamu ladeni dan
-                    kamu kasih ruang. jujur, aku ngerasa cemburu.
-                </p>
-
-                <p>
-                    walaupun mungkin buat kamu mereka cuma teman,
-                    <em>tetap aja ada bagian dari aku yang sakit hati melihatnya.</em>
-                    mungkin aku ga punya hak buat merasa seperti itu, mungkin aku
-                    juga terlalu memikirkan sesuatu yang sebenarnya buat kamu bukan
-                    apa-apa.
-                </p>
-
-                <p>
-                    tapi aku juga ga mau bohong. kalau memang sakit, ya sakit.
-                    kalau memang cemburu, ya cemburu. aku cuma selama ini terlalu
-                    sering menyimpan semuanya sendiri karena aku ga ingin perasaan
-                    aku malah berubah menjadi sesuatu yang membuat kamu merasa
-                    terkekang.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    since when
-                </div>
-
-                <p>
-                    kalau kamu bertanya sejak kapan aku mulai memikirkan semua ini,
-                    jawabannya bukan baru sekarang dan bukan sesuatu yang spontan.
-                </p>
-
-                <p>
-                    ada beberapa hal yang udah lama berputar di kepala aku. beberapa
-                    pertanyaan yang berkali-kali muncul, beberapa rasa yang aku
-                    tahan sendiri, dan beberapa hal yang sebenarnya ingin aku
-                    tanyakan tapi akhirnya aku pilih untuk diam.
-                </p>
-
-                <p>
-                    bukan karena aku ga peduli.
-                    <em>justru karena aku terlalu peduli.</em>
-                    aku memilih buat tetap menjalani semuanya dan melihat sampai
-                    sejauh mana kita bisa bertahan.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    i thought we could be the exception
-                </div>
-
-                <p>
-                    dari pertama kali kamu bilang kalau kamu ga ada niat buat
-                    pacaran dan kamu ga mau, aku sebenarnya ga masalah. aku pikir
-                    aku ngerti. aku menerima itu sebagai sesuatu yang memang harus
-                    aku pahami kalau aku mau tetap dekat sama kamu.
-                </p>
-
-                <p>
-                    kamu juga udah pernah bilang kalau kamu gampang bosen. dan dari
-                    awal sebenarnya aku udah tahu tentang itu. aku cuma mungkin
-                    terlalu percaya kalau kita bisa menjadi pengecualian.
-                </p>
-
-                <p>
-                    <em>aku percaya mungkin kita bisa berbeda.</em>
-                    aku percaya mungkin rasa nyaman yang kita punya bisa membuat
-                    kamu tetap memilih untuk tinggal. aku percaya mungkin suatu hari
-                    nanti kamu akan menemukan alasan untuk ingin menjalani semuanya
-                    bersamaku.
-                </p>
-
-                <p>
-                    dan mungkin, di situlah aku mulai terlalu berharap.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the fears you told me
-                </div>
-
-                <p>
-                    karena semakin lama, aku mulai sadar mungkin kekhawatiran kamu
-                    dari awal memang ada benarnya. kamu beberapa kali bilang takut
-                    kalau nanti kita jadi asing. takut kalau suatu saat rasa nyaman
-                    ini hilang. takut kalau akhirnya kamu bosen, lalu semuanya
-                    berubah.
-                </p>
-
-                <p>
-                    dan jujur, semakin sering kamu bilang hal itu, semakin sering
-                    juga aku memikirkannya. awalnya aku cuma menganggap itu sebagai
-                    ketakutan kamu. tapi lama-lama aku mulai bertanya-tanya sendiri.
-                </p>
-
-                <p>
-                    kalau kamu dari awal sudah takut kita akan menjadi asing, kalau
-                    kamu sudah takut akan bosen, lalu sebenarnya
-                    <em>aku sedang berada di posisi apa dalam hidup kamu?</em>
-                    apakah aku masih seseorang yang memang kamu ingin ada di sana?
-                    atau tanpa sadar, kehadiranku justru mulai menjadi sesuatu yang
-                    membuat kamu takut?
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    i don't want you to feel trapped
-                </div>
-
-                <p>
-                    aku ga pernah mau kamu merasa harus mempertahankan aku hanya
-                    karena kita sudah terlanjur dekat. aku juga ga mau kamu merasa
-                    harus terus ada hanya karena takut aku sakit hati kalau kamu
-                    pergi.
-                </p>
-
-                <p>
-                    karena semakin aku memikirkan semuanya, aku mulai sadar bahwa
-                    aku ga mau menjadi seseorang yang membuat kamu merasa terbebani
-                    hanya karena aku terlalu ingin tetap tinggal.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    not entirely your fault
-                </div>
-
-                <p>
-                    sejujurnya aku sadar ini bukan salah kamu sepenuhnya.
-                    <em>mungkin justru aku yang salah karena datang tanpa permisi</em>,
-                    di sela-sela hati kamu yang dari awal udah kamu kasih tahu ke aku
-                    kalau kamu memang belum punya niat untuk pacaran.
-                </p>
-
-                <p>
-                    aku datang dengan perasaan yang semakin lama semakin besar,
-                    sementara kamu dari awal sebenarnya udah bilang kalau kamu belum
-                    siap. waktu itu aku dengar. aku paham. aku cuma mungkin terlalu
-                    percaya kalau semuanya akan berjalan dengan sendirinya, dan aku
-                    terlalu menikmati apa yang kita punya sampai lupa bahwa sesuatu
-                    yang indah pun tetap bisa punya akhir.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the ending you once feared
-                </div>
-
-                <p>
-                    seperti yang pernah kamu bilang, mungkin lama-lama kamu akan
-                    muak, merasa bosen, lalu akhirnya mengakhiri semuanya.
-                    <em>
-                        dan sekarang, mungkin aku sedang berada di bagian cerita yang
-                        dulu pernah kamu takutkan itu.
-                    </em>
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the decision
-                </div>
-
-                <p>
-                    yaudah, hari ini sepertinya aku memutuskan untuk udahan aja.
-                    jujur, agak disayangkan. karena kalau boleh memilih, mungkin aku
-                    masih ingin kita tetap ada dan berjalan lebih jauh.
-                </p>
-
-                <p>
-                    aku masih ingin ngobrol sama kamu. masih ingin denger cerita
-                    kamu. masih ingin tahu bagaimana hari kamu. masih ingin menjadi
-                    seseorang yang kamu cari ketika kamu butuh tempat untuk cerita.
-                    masih ingin melihat hari-hari berikutnya yang mungkin bisa kita
-                    lewati bersama. masih ingin melihat sampai sejauh apa sebenarnya
-                    kita bisa berjalan.
-                </p>
-
-                <p>
-                    kalau boleh jujur, aku bahkan masih ingin semuanya terus
-                    berlanjut sampai tiada henti. tapi ternyata
-                    <em>
-                        keinginan seseorang untuk tetap tinggal ga selalu cukup untuk
-                        membuat dua orang tetap bersama.
-                    </em>
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    i hoped too much
-                </div>
-
-                <p>
-                    maaf karena selama ini aku mungkin membawa kamu terlalu tinggi,
-                    berharap terlalu banyak, sedangkan kamu sendiri ternyata masih
-                    belum siap.
-                </p>
-
-                <p>
-                    aku sadar, sekuat apa pun salah satu dari kita ingin bertahan,
-                    kita tetap ga akan bisa punya suatu hubungan kalau salah satunya
-                    ga mau atau belum siap untuk menjalaninya. dan aku ga mau kamu
-                    bertahan hanya karena merasa ga enak untuk meninggalkan aku,
-                    atau memilih untuk tetap ada hanya karena takut menyakiti aku.
-                </p>
-
-                <p>
-                    karena menurutku, kalau seseorang harus terus memaksakan dirinya
-                    untuk tinggal, pada akhirnya tempat yang seharusnya terasa
-                    nyaman justru bisa berubah menjadi sesuatu yang melelahkan.
-                </p>
-
-            </section>
-
-
-            <!-- CHECKPOINT B -->
-
-            <section class="section">
-
-                <div class="quiz-tag">
-                    ✦ jeda sebentar
-                </div>
-
-                <div class="quiz-box" id="quizB">
-
-                    <p class="quiz-q">
-                        pas baca soal cemburu &amp; ketakutan tadi, apa yang muncul di
-                        kepala kamu?
-                    </p>
-
-                    <div class="quiz-options" data-quiz="B"></div>
-
-                    <p class="quiz-reply"></p>
-
-                </div>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    what love should feel like
-                </div>
-
+                <div class="chapter-label">terakhir</div>
                 <div class="quote">
-                    <p>
-                        "a relationship should be fun. it should feel like a place
-                        where we both want to stay."
-                    </p>
+                    <p>aku ga menyesal pernah kenal kamu. aku cuma harus belajar melepaskan.</p>
                 </div>
-
-                <p>
-                    bukan sesuatu yang membuat salah satu dari kita merasa harus
-                    bertahan karena ga enak untuk pergi. aku ga mau rasa sayang yang
-                    seharusnya menjadi sesuatu yang menyenangkan malah berubah
-                    menjadi kewajiban.
-                </p>
-
-                <p>
-                    aku juga ga mau setiap kali kamu melihat namaku, kamu merasa
-                    harus membalas. aku ga mau setiap kali kita ngobrol, kamu merasa
-                    harus menjaga perasaanku. aku ga mau kamu merasa harus tetap
-                    dekat hanya karena takut membuat aku sedih.
-                </p>
-
-                <p>
-                    aku ga akan menyalahkan kamu karena kamu belum siap. aku ga akan
-                    marah karena kamu memilih jalan yang berbeda. aku ga akan
-                    menyalahkan kamu karena mungkin perasaan kamu berubah.
-                </p>
-
+                <p>makasih udah mau baca sampai habis. jaga diri baik-baik ya.</p>
+                <p><em>sampai jumpa, dan semoga kamu selalu baik-baik aja.</em></p>
+                <div class="end">— end —</div>
             </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    not blaming myself either
-                </div>
-
-                <p>
-                    mungkin ini juga salahku, karena aku datang dan berharap di saat
-                    kamu memang belum berada di tempat yang sama denganku. tapi aku
-                    juga ga mau menyalahkan diriku sendiri karena pernah berharap.
-                </p>
-
-                <p>
-                    <em>
-                        karena semua yang aku rasakan ke kamu memang nyata.
-                    </em>
-                    dan selama ini aku memang bahagia.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the promise i couldn't keep
-                </div>
-
-                <p>
-                    maaf yaa, karena pada akhirnya aku ga bisa menepati janji kalau
-                    aku ga akan mengiyakan hal ini. bukan karena aku tiba-tiba
-                    berhenti sayang. bukan karena semua yang kita lewati tiba-tiba
-                    kehilangan arti. dan bukan juga karena aku menyesal pernah
-                    mengenal kamu.
-                </p>
-
-                <p>
-                    aku cuma mulai sadar bahwa
-                    <em>
-                        mempertahankan sesuatu sendirian juga bukan cara untuk membuat
-                        sebuah hubungan tetap hidup.
-                    </em>
-                </p>
-
-                <p>
-                    mungkin kali ini aku harus belajar menerima bahwa ada hal-hal
-                    yang sebenarnya masih ingin kita pertahankan, tapi tetap harus
-                    kita lepaskan ketika orang yang kita sayang udah memilih untuk
-                    pergi. dan mungkin mencintai seseorang juga kadang berarti
-                    mengerti kapan harus menggenggam, dan kapan harus melepaskan.
-                    bukan karena kita sudah ga sayang, tapi karena kita sadar,
-                    memaksa seseorang untuk tetap tinggal bukanlah bentuk dari kasih
-                    sayang.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    about the birthday gift
-                </div>
-
-                <p>
-                    maaf juga aku ga ngasih hadiah pas kamu ultah. bukan karena aku
-                    ga mau ngasih. sebenarnya aku pengen. aku bahkan sempat
-                    kepikiran tentang apa yang kira-kira bisa aku kasih ke kamu.
-                </p>
-
-                <p>
-                    tapi mungkin dari awal aku udah punya sedikit firasat kalau
-                    endingnya akan seperti ini. aku ga ingin memberikan sesuatu yang
-                    nantinya malah membuat kamu terus mengingat aku, atau membuat
-                    kamu merasa terbebani oleh sesuatu yang seharusnya jadi kenangan
-                    baik.
-                </p>
-
-                <p>
-                    aku lebih memilih untuk menyimpan niat itu sebagai sesuatu yang
-                    pernah aku ingin lakukan untuk kamu. mungkin terdengar
-                    sederhana, tapi buat aku itu juga bagian dari cara terakhirku
-                    untuk tetap menjaga sesuatu yang pernah kita punya supaya ga
-                    berubah menjadi beban.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    people come and go
-                </div>
-
-                <div class="quote">
-                    <p>
-                        "people come and go, some stay for a while, and some leave when the time comes. i guess, now it's my turn."
-                    </p>
-                </div>
-
-                <p>
-                    mungkin memang ada orang yang hadir bukan untuk tinggal
-                    selamanya. mungkin ada orang yang datang hanya untuk menemani
-                    kita di satu bagian hidup, memberikan cerita, membuat kita
-                    mengenal rasa yang sebelumnya belum pernah kita rasakan, lalu
-                    perlahan pergi ketika waktunya sudah sampai.
-                </p>
-
-                <p>
-                    aku ga pernah menyangka kalau pada akhirnya kita juga akan
-                    sampai di bagian itu. aku kira cerita kita masih panjang, aku
-                    kira masih akan ada banyak halaman yang bisa kita tulis.
-                    ternyata mungkin
-                    <em>
-                        beberapa cerita memang hanya ditulis sampai halaman tertentu
-                    </em>,
-                    seberapa pun kita ingin membacanya lebih jauh.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    your choice, my choice
-                </div>
-
-                <p>
-                    dan keputusan ini sebenarnya bukan yang aku mau. tapi ini juga
-                    keputusan yang kamu pilih. jadi biar ga ada lagi yang bikin kita
-                    bingung atau saling bertanya-tanya, aku akan pastikan dan
-                    yakinkan kalau kita cukupkan saja sampai di sini.
-                </p>
-
-                <p>
-                    bukan karena aku ingin kita berpisah. tapi karena aku menghargai
-                    keputusan kamu. aku cuma takut kalau kehadiranku sekarang malah
-                    terasa seperti beban buat kamu, dan aku ga pernah mau menjadi
-                    sesuatu yang membuat kamu merasa terbebani.
-                </p>
-
-                <p>
-                    aku ga mau terus mengetuk pintu yang sebenarnya sudah kamu minta
-                    untuk aku tinggalkan. aku juga ga mau terus meyakinkan kamu
-                    untuk tinggal kalau sebagian dari diri kamu sebenarnya sudah
-                    ingin pergi. kalau memang pergi adalah sesuatu yang membuat kamu
-                    merasa lebih lega, maka aku akan belajar menerima itu. meskipun
-                    jujur, menerima bukan berarti mudah.
-                </p>
-
-                <p>
-                    aku cuma ingin untuk sekali ini, kita berhenti tanpa saling
-                    memaksa. tanpa saling menyalahkan. tanpa membuat salah satu dari
-                    kita merasa bersalah karena memilih apa yang sebenarnya dia mau.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    after this
-                </div>
-
-                <p>
-                    kalau setelah ini kamu mau cutoff aku, hapus aku dari semua
-                    sosmed, atau benar-benar menghilangkan semua hal tentang aku,
-                    gapapa. kalau kamu masih mau keep semuanya juga gapapa.
-                </p>
-
-                <p>
-                    aku ga akan memaksa kamu harus melakukan apa pun. kamu bebas
-                    memilih apa yang menurut kamu paling nyaman. aku cuma berharap,
-                    apa pun pilihan kamu setelah ini, jangan sampai kamu merasa
-                    punya kewajiban untuk menjaga perasaan aku. aku akan belajar
-                    menjaga perasaan aku sendiri.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    maybe, someday
-                </div>
-
-                <p>
-                    dan kalau suatu hari nanti kamu bertanya apakah hubungan kita
-                    masih mungkin kembali, menurutku mungkin saja. bukan karena aku
-                    ingin menunggu. bukan karena aku ingin meminta kamu kembali. dan
-                    bukan juga karena aku ingin memberikan harapan supaya suatu hari
-                    nanti kamu berubah pikiran.
-                </p>
-
-                <p>
-                    aku cuma percaya beberapa hal memang ga harus dipaksakan untuk
-                    selesai selamanya. kalau suatu hari nanti hati kamu membawa kamu
-                    kembali ke sini, dan saat itu kita sama-sama sudah siap, mungkin
-                    kita bisa bertemu lagi. bukan sebagai dua orang yang masih
-                    membawa luka dari hari ini, tapi sebagai
-                    <em>
-                        dua orang yang sudah lebih dewasa, lebih mengerti diri sendiri,
-                        dan lebih mengerti bagaimana caranya menjaga satu sama lain.
-                    </em>
-                </p>
-
-                <p>
-                    mungkin saat itu kita akan menjadi versi diri kita yang berbeda.
-                    dan kalau memang masih ada jalan untuk kita, mungkin kita akan
-                    menemukan jalan itu tanpa harus mencarinya dengan paksa.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    for now
-                </div>
-
-                <p>
-                    tapi untuk sekarang, biar aku yang pergi dulu. bukan karena aku
-                    berhenti peduli, justru mungkin karena aku masih peduli. dan
-                    mungkin kali ini bentuk terakhir dari peduliku adalah dengan
-                    menghargai ruang dan keputusan yang kamu pilih.
-                </p>
-
-                <p>
-                    aku ga ingin pergi sambil membenci. aku ga ingin pergi sambil
-                    menyalahkan. aku juga ga ingin semua yang pernah kita punya
-                    berakhir hanya karena kita gagal melanjutkannya. aku ingin
-                    mengingatnya sebagai sesuatu yang pernah indah, sebagai bagian
-                    dari hidupku yang pernah membuat aku bahagia.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    what i hope for you
-                </div>
-
-                <p>
-                    kalau pada akhirnya kamu dan aku memang ga bisa bertahan, aku
-                    cuma berharap orang-orang yang nantinya datang dan menaruh
-                    perasaan ke kamu bisa membuat kamu bahagia. semoga mereka bisa
-                    bertahan di sisi kamu tanpa membuat kamu merasa terbebani, tanpa
-                    membuat kamu merasa harus memaksakan sesuatu yang sebenarnya ga
-                    kamu mau.
-                </p>
-
-                <p>
-                    <em>
-                        semoga kamu bisa menemukan seseorang yang memang bisa berjalan
-                        sama kamu di waktu dan arah yang sama.
-                    </em>
-                    seseorang yang ga hanya datang ketika semuanya mudah, tapi juga
-                    bisa memahami kamu ketika keadaan sedang ga baik-baik saja.
-                    seseorang yang bisa membuat kamu merasa aman untuk tinggal,
-                    bukan merasa harus tinggal.
-                </p>
-
-                <p>
-                    dan semoga ketika nanti kamu menemukan orang itu, kamu bisa
-                    benar-benar bahagia tanpa harus mempertanyakan apakah kamu
-                    sedang berada di tempat yang tepat.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    thank you
-                </div>
-
-                <p>
-                    makasih buat semuanya yaa. makasih buat waktu. makasih buat
-                    cerita. makasih buat perhatian. makasih buat foto-foto cantik
-                    kamu. makasih buat obrolan random yang kadang ga jelas tapi
-                    selalu berhasil bikin aku seneng. makasih buat semua hal kecil
-                    yang mungkin buat kamu biasa aja, tapi pernah berarti banyak
-                    banget buat aku.
-                </p>
-
-                <p>
-                    aku bersyukur pernah kenal kamu. aku bersyukur pernah punya
-                    kesempatan buat dekat sama kamu. aku bersyukur pernah bisa ada
-                    di sisi kamu. dan aku bersyukur pernah menjadi bagian kecil dari
-                    hari-hari kamu.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    however you remember me
-                </div>
-
-                <p>
-                    aku ga tahu nantinya kamu akan mengingat aku sebagai apa.
-                    mungkin cuma seseorang yang pernah datang, pernah dekat, pernah
-                    membuat kamu tersenyum, lalu akhirnya pergi. dan gapapa.
-                </p>
-
-                <p>
-                    buat aku, kamu tetap akan menjadi seseorang yang pernah membuat
-                    hari-hariku terasa berbeda. seseorang yang datang secara ga
-                    sengaja, tapi meninggalkan sesuatu yang ga pernah aku rencanakan.
-                </p>
-
-                <p>
-                    dan mungkin itu yang paling lucu dari semuanya.
-                    <em>
-                        kita bertemu tanpa sengaja, menjadi dekat tanpa benar-benar
-                        merencanakannya, saling nyaman tanpa tahu kapan tepatnya rasa
-                        itu tumbuh
-                    </em>,
-                    lalu sekarang harus belajar berpisah meskipun sebenarnya masih
-                    ada bagian dari aku yang ingin tetap tinggal.
-                </p>
-
-            </section>
-
-
-            <!-- CHECKPOINT C -->
-
-            <section class="section">
-
-                <div class="quiz-tag">
-                    ✦ satu pertanyaan terakhir
-                </div>
-
-                <div class="quiz-box" id="quizC">
-
-                    <div class="quiz-progress" id="quizCProgress">
-                        1 / 2
-                    </div>
-
-                    <p class="quiz-q" id="quizCQ"></p>
-
-                    <div class="quiz-options" id="quizCOptions"></div>
-
-                    <p class="quiz-reply" id="quizCReply"></p>
-
-                    <button class="quiz-next" id="quizCNext">
-                        lanjut
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    the last page
-                </div>
-
-                <p>
-                    semoga setelah ini kamu menemukan hari-hari yang lebih tenang,
-                    lebih ringan, lebih bahagia. semoga kamu selalu baik-baik aja.
-                </p>
-
-                <p>
-                    jaga diri yaa. jangan lupa makan. jangan terlalu sering begadang.
-                    dan kalau suatu hari nanti kamu melihat sesuatu yang mengingatkan
-                    kamu sama aku, semoga yang muncul bukan rasa bersalah atau sedih.
-                </p>
-
-                <p>
-                    semoga kamu cuma tersenyum sedikit dan berpikir,
-                    <em>
-                        "oh iya, dulu pernah ada seseorang yang sayang banget sama aku."
-                    </em>
-                    karena memang pernah ada. dan orang itu adalah aku.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    closing the page, not tearing it
-                </div>
-
-                <p>
-                    mungkin untuk sekarang jalan kita berhenti di sini. bukan karena
-                    perjalanan kita ga berarti. justru karena perjalanan itu berarti,
-                    aku ingin menyimpannya dengan baik.
-                </p>
-
-                <p>
-                    aku akan tetap menganggap semua yang pernah kita punya sebagai
-                    sesuatu yang pernah indah, bukan sesuatu yang harus aku sesali.
-                    aku ga menyesal pernah menemukan kamu, ga menyesal pernah
-                    memilih untuk dekat sama kamu, ga menyesal pernah berharap.
-                </p>
-
-                <p>
-                    dan mungkin memang ga semua orang yang kita sayang ditakdirkan
-                    untuk tinggal. sebagian hanya datang untuk memberikan cerita,
-                    sebagian datang untuk mengajarkan kita sesuatu, dan sebagian
-                    lagi datang hanya untuk membuat kita tahu bahwa ternyata hati
-                    kita masih bisa merasakan sesuatu sedalam itu.
-                </p>
-
-                <p>
-                    mungkin kamu adalah bagian dari cerita itu buat aku. dan
-                    meskipun akhirnya aku harus menutup halaman ini,
-                    <em>aku ga akan merobeknya.</em>
-                    aku akan membiarkannya tetap ada di sana, sebagai bagian dari
-                    cerita yang pernah aku baca dengan senang hati.
-                </p>
-
-            </section>
-
-
-            <section class="section">
-
-                <div class="chapter-label">
-                    for now, i go
-                </div>
-
-                <p>
-                    makasih yaa. makasih udah pernah hadir. makasih udah pernah
-                    memilih untuk dekat. dan makasih udah pernah membuat aku merasa
-                    cukup bahagia hanya dengan menjadi kamu.
-                </p>
-
-                <p>
-                    untuk sekarang, aku pergi dulu. semoga kamu bahagia. semoga kamu
-                    baik-baik aja. dan semoga, di mana pun nanti jalan kita membawa
-                    kita, kita sama-sama menemukan tempat yang memang ingin kita
-                    tinggali.
-                </p>
-
-                <p>
-                    jaga diri baik-baik yaa. sampai ketemu lagi, kalau memang suatu
-                    hari nanti semesta masih mempertemukan kita.
-                </p>
-
-                <em>
-                   Im leaving, but I hope you know that I still love you more than you think, Sandrina.
-                </em>
-
-            </section>
-
         </article>
-
-        <section id="ending">
-
-            <div class="ending-inner">
-
-                <div class="ending-symbol">
-                    ✦
-                </div>
-
-                <h1 class="ending-title" id="endingTitle"></h1>
-
-                <p class="ending-text" id="endingText"></p>
-
-                <br>
-
-                <button onclick="location.reload()">
-                    read it again
-                </button>
-
-            </div>
-
-        </section>
-
     </main>
 
-
     <script>
-
-        // ==============================
-        // BASIC SETUP
-        // ==============================
-
-        const opening = document.getElementById("opening");
-        const openBtn = document.getElementById("openBtn");
-        const letter = document.getElementById("letter");
-        const musicBtn = document.getElementById("musicBtn");
-        const ending = document.getElementById("ending");
-        const progressBar = document.getElementById("progressBar");
-        const finalChoice = document.getElementById("finalChoice");
-
-        const bgMusic = document.getElementById("bgMusic");
-
-
-        // DATE
-
-        const now = new Date();
-
-        document.getElementById("date").textContent =
-            now.toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric"
-            });
-
-
-        // ==============================
-        // STARS
-        // ==============================
-
+        const opening = document.getElementById("opening"), openBtn = document.getElementById("openBtn"), letter = document.getElementById("letter"), progressBar = document.getElementById("progressBar");
+        document.getElementById("date").textContent = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
         const stars = document.getElementById("stars");
-
-        for (let i = 0; i < 85; i++) {
-
-            const star = document.createElement("span");
-
-            star.className = "star";
-
-            star.style.left =
-                Math.random() * 100 + "vw";
-
-            star.style.top =
-                Math.random() * 100 + "vh";
-
-            star.style.opacity =
-                (Math.random() * 0.55 + 0.1).toFixed(2);
-
-            star.style.transform =
-                `scale(${Math.random() * 1.5 + .5})`;
-
-            stars.appendChild(star);
-        }
-
-
-        // ==============================
-        // OPEN LETTER
-        // ==============================
-
+        for (let i = 0; i < 85; i++) { const s = document.createElement("span"); s.className = "star"; s.style.left = Math.random() * 100 + "vw"; s.style.top = Math.random() * 100 + "vh"; s.style.opacity = (Math.random() * .55 + .1).toFixed(2); s.style.transform = "scale(" + (Math.random() * 1.5 + .5) + ")"; stars.appendChild(s) }
         openBtn.addEventListener("click", () => {
-
             opening.classList.add("hidden");
-
             setTimeout(() => {
-
-                opening.style.display = "none";
-
-                letter.style.display = "block";
-
-                requestAnimationFrame(() => {
-
-                    letter.classList.add("visible");
-
-                    musicBtn.style.display = "block";
-
-                    progressBar.style.display = "block";
-
-                });
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }, 900);
-
+                opening.style.display = "none"; letter.style.display = "block";
+                requestAnimationFrame(() => { letter.classList.add("visible"); progressBar.style.display = "block" });
+                window.scrollTo({ top: 0, behavior: "smooth" })
+            }, 900)
         });
-
-
-        // ==============================
-        // SCROLL REVEAL
-        // ==============================
-
-        const sections =
-            document.querySelectorAll(".section");
-
-        const observer =
-            new IntersectionObserver((entries) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                    }
-
-                });
-
-            }, {
-                threshold: 0.12
-            });
-
-        sections.forEach(section =>
-            observer.observe(section)
-        );
-
-
-        // ==============================
-        // READING PROGRESS
-        // ==============================
-
+        const observer = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add("show") }) }, { threshold: .12 });
+        document.querySelectorAll(".section").forEach(s => observer.observe(s));
         window.addEventListener("scroll", () => {
-
             if (letter.style.display !== "block") return;
-
-            const scrollTop = window.scrollY;
-
-            const docHeight =
-                document.documentElement.scrollHeight -
-                window.innerHeight;
-
-            const pct =
-                docHeight > 0
-                    ? (scrollTop / docHeight) * 100
-                    : 0;
-
-            progressBar.style.width =
-                pct + "%";
-
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%"
         });
-
-
-        // ==============================
-        // QUIZ A & B
-        // ==============================
-
-        function buildSingleQuiz(id, options) {
-
-            const container =
-                document.querySelector(
-                    '[data-quiz="' + id + '"]'
-                );
-
-            const box =
-                container.closest(".quiz-box");
-
-            const reply =
-                box.querySelector(".quiz-reply");
-
-
-            options.forEach(opt => {
-
-                const btn =
-                    document.createElement("button");
-
-                btn.className = "quiz-opt";
-
-                btn.textContent =
-                    opt.text;
-
-
-                btn.addEventListener("click", () => {
-
-                    box.querySelectorAll(".quiz-opt")
-                        .forEach(b => b.disabled = true);
-
-                    btn.classList.add("picked");
-
-
-                    setTimeout(() => {
-
-                        reply.textContent =
-                            opt.reply;
-
-                        reply.classList.add("show");
-
-                    }, 250);
-
-                });
-
-
-                container.appendChild(btn);
-
-            });
-
-        }
-
-
-        buildSingleQuiz("A", [
-
-            {
-                text: "excited banget",
-                reply: "IHHH aku juga tauuu, jujur aja serius dua riuss"
-            },
-
-            {
-                text: "biasa aja, ga nyangka bakal jadi begini",
-                reply: "aku juga ga nyangka bakal sejauh ini hanya saja aku bersyukurrr"
-            },
-
-            {
-                text: "udah lupa gimana rasanya",
-                reply: "gapapa, yang penting pernah ngerasain walau ga inget xixi"
-            }
-
-        ]);
-
-
-        buildSingleQuiz("B", [
-
-            {
-                text: "aku ngerti kenapa kamu ngerasa gitu",
-                reply: "makasih udah mau ngerti, itu udah cukup buat aku."
-            },
-
-            {
-                text: "aku ga nyangka kamu mikirin sejauh itu",
-                reply: "aku juga baru sadar udah sejauh itu mikirinnya."
-            },
-
-            {
-                text: "aku juga sebenernya ngerasa hal yang sama",
-                reply: "kalau iya, berarti kita emang ngerasain hal yang sama dari dua sisi."
-            }
-
-        ]);
-
-
-        // ==============================
-        // QUIZ C
-        // ==============================
-
-        const quizCData = [
-
-            {
-                q: "kalau harus jujur, bagian mana dari surat ini yang paling nempel di kamu?",
-
-                options: [
-
-                    {
-                        text: "soal ketemu ga sengaja di awal",
-                        reply: "kadang justru yang ga direncanain itu yang paling nempel tauuuu"
-                    },
-
-                    {
-                        text: "soal cemburu & ketakutan",
-                        reply: "makasih udah baca bagian itu sampai habis, gapap kok aku pahamm"
-                    },
-
-                    {
-                        text: "soal ucapan makasih di akhir",
-                        reply: "semoga rasa itu yang paling kebawaaaa terus sampai kapanpun ituu"
-                    }
-
-                ]
-            },
-
-
-            {
-                q: "kalau suatu hari nanti semesta beneran mempertemukan kita lagi, kamu bakal gimana?",
-
-                options: [
-
-                    {
-                        text: "seneng",
-                        reply: "hehehe makasih yaa semoga beneran kejadian ya, someday :) ."
-                    },
-
-                    {
-                        text: "canggung dulu, terus biasa lagi",
-                        reply: "itu juga udah lebih dari cukup kokk gapapaa"
-                    },
-
-                    {
-                        text: "belum kebayang",
-                        reply: "gapapa, ga usah dibayangin dari sekarang biarkan lah biarkan wlee"
-                    }
-
-                ]
-            }
-
-        ];
-
-
-        let quizCIndex = 0;
-
-        const quizCProgress =
-            document.getElementById("quizCProgress");
-
-        const quizCQ =
-            document.getElementById("quizCQ");
-
-        const quizCOptions =
-            document.getElementById("quizCOptions");
-
-        const quizCReply =
-            document.getElementById("quizCReply");
-
-        const quizCNext =
-            document.getElementById("quizCNext");
-
-        const quizCBox =
-            document.getElementById("quizC");
-
-
-        function renderQuizC() {
-
-            const item =
-                quizCData[quizCIndex];
-
-            quizCProgress.textContent =
-                (quizCIndex + 1) +
-                " / " +
-                quizCData.length;
-
-            quizCQ.textContent =
-                item.q;
-
-            quizCOptions.innerHTML = "";
-
-            quizCReply.classList.remove("show");
-
-            quizCReply.textContent = "";
-
-            quizCNext.classList.remove("show");
-
-
-            item.options.forEach(opt => {
-
-                const btn =
-                    document.createElement("button");
-
-                btn.className =
-                    "quiz-opt";
-
-                btn.textContent =
-                    opt.text;
-
-
-                btn.addEventListener("click", () => {
-
-                    document
-                        .querySelectorAll(
-                            "#quizCOptions .quiz-opt"
-                        )
-                        .forEach(b => b.disabled = true);
-
-                    btn.classList.add("picked");
-
-
-                    setTimeout(() => {
-
-                        quizCReply.textContent =
-                            opt.reply;
-
-                        quizCReply.classList.add("show");
-
-                        quizCNext.classList.add("show");
-
-                    }, 250);
-
-                });
-
-
-                quizCOptions.appendChild(btn);
-
-            });
-
-        }
-
-
-        quizCNext.addEventListener("click", () => {
-
-            quizCIndex++;
-
-
-            if (quizCIndex < quizCData.length) {
-
-                renderQuizC();
-
-            } else {
-
-                quizCBox.innerHTML =
-                    '<p class="quiz-done">makasih udah mau jawab dengan jujur sampai akhir.</p>';
-
-
-                setTimeout(() => {
-
-                    finalChoice.style.display =
-                        "block";
-
-                    finalChoice.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                }, 800);
-
-            }
-
-        });
-
-
-        renderQuizC();
-
-
-        // ==============================
-        // ENDING
-        // ==============================
-
-        const endingTitle =
-            document.getElementById("endingTitle");
-
-        const endingText =
-            document.getElementById("endingText");
-
-
-        document.querySelectorAll(".choice")
-            .forEach(button => {
-
-                button.addEventListener("click", () => {
-
-                    const type =
-                        button.dataset.ending;
-
-
-                    letter.style.transition =
-                        "1.2s ease";
-
-                    letter.style.opacity =
-                        "0";
-
-                    letter.style.transform =
-                        "translateY(-20px)";
-
-
-                    setTimeout(() => {
-
-                        letter.style.display =
-                            "none";
-
-                        ending.classList.add("show");
-
-
-                        // stop music when ending appears
-                        bgMusic.pause();
-
-
-                        musicBtn.textContent =
-                            "♪";
-
-
-                        if (type === "memory") {
-
-                            endingTitle.textContent =
-                                "some things are worth remembering.";
-
-                            endingText.textContent =
-                                "bukan untuk membuat kita kembali, tapi untuk mengingat bahwa kita pernah punya sesuatu yang berarti.";
-
-                        } else {
-
-                            endingTitle.textContent =
-                                "and now, i let you go.";
-
-                            endingText.textContent =
-                                "bukan karena semuanya tidak berarti, tapi karena tidak semua yang berarti harus dipertahankan selamanya.";
-
-                        }
-
-                    }, 1000);
-
-                });
-
-            });
-
-
-        // ==============================
-        // MP3 MUSIC
-        // ==============================
-
-        bgMusic.volume = 0.04;
-
+        const bgMusic = document.getElementById("bgMusic"), musicBtn = document.getElementById("musicBtn");
+        bgMusic.volume = 0.15;
         musicBtn.addEventListener("click", async () => {
-
-            if (bgMusic.paused) {
-
-                try {
-
-                    await bgMusic.play();
-
-                    musicBtn.textContent =
-                        "Ⅱ";
-
-                } catch (error) {
-
-                    console.log(
-                        "Audio gagal diputar:",
-                        error
-                    );
-
-                }
-
-            } else {
-
-                bgMusic.pause();
-
-                musicBtn.textContent =
-                    "♪";
-
-            }
-
+            if (bgMusic.paused) { try { await bgMusic.play(); musicBtn.textContent = "Ⅱ" } catch (e) { } }
+            else { bgMusic.pause(); musicBtn.textContent = "♪" }
         });
     </script>
-
 </body>
 
 </html>
